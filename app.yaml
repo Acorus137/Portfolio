@@ -1,0 +1,8 @@
+# [START django_app]
+runtime: python310
+entrypoint: gunicorn -b :$PORT app:server
+
+handlers:
+- url: /.*
+  script: auto
+# [END django_app]

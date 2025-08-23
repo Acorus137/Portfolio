@@ -34,8 +34,8 @@ def register_mls_callbacks(mls_data_vis):
             raise PreventUpdate
         
         rank_colors = {
-            "1": "Yellow",
-            "2": "Red",
+            "1": "Blue",
+            "2": "Yellow",
             "3": "Purple",
             "4": "darkgray",
             "5": "darkgray",
@@ -50,7 +50,7 @@ def register_mls_callbacks(mls_data_vis):
             "14": "darkgray",
             "15": "darkgray",
         }
-
+        #Coping database within the function, and performing adjustments/calculations.
         mls_standings_club = mls_standings[mls_standings['Club'] == value].copy()
         mls_standings_club.dropna(inplace=True)
         mls_standings['WinPercentage'] = (mls_standings['Won']+(mls_standings['Tie']*0.5))/mls_standings['GP']
@@ -67,10 +67,7 @@ def register_mls_callbacks(mls_data_vis):
         won = mls_standings_club['Won'].sum()
         lost = mls_standings_club['Lost'].sum()
         tie = mls_standings_club['Tie'].sum()
-        #gf = mls_standings_club['GF'].sum()
-        #ga = mls_standings_club['GA'].sum()
         gd = mls_standings_club['GD'].sum()
-        #points = mls_standings_club['Points'].sum()
         clubRankAvg = mls_standings_club['Rank'].mean()
 
         mlsFig = px.scatter(mls_standings,
@@ -80,30 +77,32 @@ def register_mls_callbacks(mls_data_vis):
             hover_data=["Year", 'Club', 'Rank'],
             template="plotly_dark",
             color="sRank",
-            color_discrete_map=rank_colors
+            color_discrete_map=rank_colors,
+            labels={'sRank': 'Rank'}
             )
 
         mlsFig2 = px.scatter(mls_standings,
-                            x="WinPercentage",
-                            y="GD",
-                            title="Win Percentage vs Goal Differential",
+                            x="Points",
+                            y="WinPercentage",
+                            title="WinPercentage vs. Points Earned",
                             hover_data=["Year", 'Club', 'Rank'],
                             template="plotly_dark",
                             color='sRank',
-                            color_discrete_map=rank_colors
+                            color_discrete_map=rank_colors,
+                            labels={'sRank': 'Rank'}
             )
         
-        mlsFig3 = px.histogram(mls_standings,
-                             x='WinPercentage',
-                             template="plotly_dark",
-                             #color='Rank',
-                             title='Win Percentage Distribution',
-                             hover_data=['Club', 'Year', 'Points', 'Won', 'Tie', 'Lost', 'GP'],
-                             nbins=6,
-                             histfunc='count'
-                             )
-        
-        #mlsFig3.update_yaxes(autorange="reversed")
+        mlsFig3 = px.violin(mls_standings,
+                            y = 'WinPercentage',
+                            x = 'Rank',
+                            hover_data=['Club', 'Rank' ,'GD', 'GF', 'GA', 'Won', 'Lost'],
+                            labels={'GD': 'Goal Differential', 'GF': 'Goals For', 'GA': 'Goals Against', 'Won': 'Matches Won', 'Lost': 'Matches Lost'},
+                            title='Win Percentage by Rank',
+                            template='plotly_dark',
+                            points='all',
+                            color='Rank'
+            )
+                             
         
         #Radar Chart
         fig1 = go.Figure(data=go.Scatterpolar(

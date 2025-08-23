@@ -77,45 +77,54 @@ visJumbotron = html.Div(
         html.Br(),
         dbc.Row(
             [
+                dbc.Col(
                 dcc.Graph(figure={},
                           id='mlsFig'),
-            html.Br()
-            ]
-        ),
-        dbc.Row(
-            [
-            html.Hr(),
-            html.P(
-                "The chart shows a link between Goal Differential and Points but ignores differences in games played. "
-                "Most MLS seasons have 30–34 matches, but in 2020 some teams played only 18."
+                ),
+                dbc.Col(
+                    dbc.CardBody([
+                html.P("This scatter plot shows a link between Goal Differential and Points but ignores differences in games played. "
+                       "Most MLS seasons have 30–34 matches, but in 2020 some teams played only 18."),
+                html.P('From this chart we can see the variation between goal differential and points earned. In 2024 Miami had a Goal Differential of 30, yet managed to earn 74 points.'),
+                html.P('In 2019 LAFC had an impressive Goal Differential of 48, but only earned 72 points. While having a high Goal Differential increases the likelihood of success, it does not dictate the number of matches won nor points earned.'),
+                ]),
+                ),
+            html.Br(),
+            ], style={'padding': "0.5rem"}
             ),
-            html.P(
-                "To adjust for this, we use Win Percentage:"
-            ),
-            html.H5("Win Percentage = (Wins + (Ties × 0.5)) ÷ Games Played"),
-            html.P(
-                "In MLS, wins give 3 points, ties 1 point, and losses 0. Ties count as half a win in this formula."
-            ),
-            ], style={'padding': "0.5rem"}),
         dbc.Row(
             [
                 dbc.Col(
+                     dbc.CardBody(
+                        [
+                            html.P("To adjust for variance in games played, we will create a Win Percentage field:"),
+                            html.H5("Win Percentage = (Wins + (Ties × 0.5)) ÷ Games Played"),
+                            html.P("In MLS, wins give 3 points, ties 1 point, and losses 0. Ties count as half a win in this formula."),
+                            html.P("From this scatter plot, we can see Win Percentages graphed against Points earned. Here we can see a strong correlation between points earned and a team's Win Percentage."),
+                        ])),
+                dbc.Col(
                     dcc.Graph(figure={},
-                            id='mlsFig2')
-                       )
+                              id='mlsFig2')
+                ),
             ], style={'padding': "0.5rem"}
             ),
         dbc.Row(
             [
-                html.P('From the graph above, we can see Win Percentages graphed against Goal Differential. Additonally, the chart is colored according to points earned.'),
-                html.P('This highlights difference between goal differential and points earned. In 2024 Miami had a Goal Differential of 30, yet managed to earn 74 points.'),
-                html.P('In 2019 LAFC had an impressive Goal Differential of 48, yet only earned 72 points. While having a high Goal Differential increases the likelihood of success, it does not dictate the number of matches won nor points earned.'),
-            ], style={'padding': "0.5rem"}
-            ),
-        dbc.Row(
-            [
+                dbc.Col(
                 dcc.Graph(figure={},
                         id='mlsFig3')
+                ),
+                dbc.Col([
+                    dbc.CardBody(
+                        [
+                            html.P("In the graphs above we are able to determined that Goal Differential and Win Percentage are strongly correlated with a team's ability to earn points, which determines a team's performance."),
+                            html.P("In our comparison of Goal Differential and Points earned, we can see that a team must have a Goal Differential of 0 or more, to land in the top three of their divison."),
+                            html.P("And when reviewing our Win Percentage vs. Points earned graph, it's easy to see that if a team wishes to be in the top three of their division they should have a Win Percentage of 0.50 or better."),
+                            html.P('In this violin plot, we can confirm our findings above. As we can see, the median Win Percentage for a 3rd Ranked team is 0.544.'),
+                            html.P("Keep this in mind when reviewing your team's year of year statistics below!")
+                        ]
+                )
+                ])
             ], style={'padding': "0.5rem"}
             ), 
 #Creating a section of the MLS Data Vis portion of the portfolio that allows viewers to choose their favorite MLS club and see their yearly statistics.

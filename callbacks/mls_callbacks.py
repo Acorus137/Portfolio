@@ -19,7 +19,7 @@ def register_mls_callbacks(mls_data_vis):
         Output('mlsFig3', 'figure'),
         Output('mlsgraph1', 'figure'),        
         Output('mlsgraph2', 'figure'),
-        Output('clubGfAvg', 'children'),
+        Output('clubGDAvg', 'children'),
         Output('clubPointsAvg', 'children'),
         Output('clubPpgAvg', 'children'),
         Output('clubWonMax','children'),
@@ -55,7 +55,7 @@ def register_mls_callbacks(mls_data_vis):
         mls_standings_club.dropna(inplace=True)
         mls_standings['WinPercentage'] = (mls_standings['Won']+(mls_standings['Tie']*0.5))/mls_standings['GP']
         mls_standings_club= mls_standings_club[['Year', 'GP', 'Rank', 'GF', 'GA', 'GD', 'Points','PPG', 'Won', 'Lost', 'Tie', 'WinPercentage']]
-        clubGfAvg = mls_standings_club['GF'].mean()
+        clubGDAvg = mls_standings_club['GD'].mean()
         clubPpgAvg = mls_standings_club['PPG'].mean()
         clubWonMax = mls_standings_club['Won'].max()
         clubLostMax = mls_standings_club['Lost'].max()
@@ -72,8 +72,8 @@ def register_mls_callbacks(mls_data_vis):
 
         mlsFig = px.scatter(mls_standings,
             x="GD",
-            y="Points",
-            title="Points Earned vs Goal Differential",
+            y="PPG",
+            title="Points Per Game vs Goal Differential",
             hover_data=["Year", 'Club', 'Rank'],
             template="plotly_dark",
             color="sRank",
@@ -82,9 +82,9 @@ def register_mls_callbacks(mls_data_vis):
             )
 
         mlsFig2 = px.scatter(mls_standings,
-                            x="Points",
+                            x="PPG",
                             y="WinPercentage",
-                            title="WinPercentage vs. Points Earned",
+                            title="WinPercentage vs. Points Per Game",
                             hover_data=["Year", 'Club', 'Rank'],
                             template="plotly_dark",
                             color='sRank',
@@ -134,7 +134,7 @@ def register_mls_callbacks(mls_data_vis):
         fig2.update_layout(xaxis=dict(tickmode='linear', dtick=1))
 
         return (mlsFig, mlsFig2, mlsFig3, fig1, fig2,
-            f"{clubGfAvg:.1f}", 
+            f"{clubGDAvg:.1f}", 
             f"{clubPpgAvg:.1f}",
             f"{clubPointsAvg:.1f}", 
             f"{clubWonMax:.0f}", 

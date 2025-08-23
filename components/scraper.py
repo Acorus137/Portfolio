@@ -8,10 +8,10 @@ mls_standings = load_mls_data()
 #Webscraping Section
 scrapingJumbotron = html.Div([
     dbc.Container([
-        html.H1('MLS Standings Web Scraping & Data Preparation'),
+        html.H1('Web Scraping & Data Cleaning'),
         html.P('Web Scraping using Selenium and Python', className='lead'),
         html.Hr(),
-        html.P("This project was started as I share an interest in web scraping and data visualization. My favorite Club is FC Cincinnati, and I wanted to visualize the Club's year of year performance. However, as hard as I looked the data I needed wasn't available. So, I decided to source the data myself using Selenium and Python to scrape the data from the MLS website itself. Before doing so, I verified the MLS website did not have verbiage preventing webscraping or bots."),
+        html.P("This project was started as I share an interest in web scraping, data analysis and the MLS. My favorite club is FC Cincinnati, and I wanted to visualize the club's year of year performance. I could not find the data I needed. So, using Selenium and Python, I scraped the data from the MLS website itself. Before doing so, I verified the MLS website did not have verbiage preventing webscraping or bots."),
         html.P("I’ve written the script in a Jupyter Notebook. In the short clip, you’ll see a Firefox browser window launch and be driven automatically by the script. The script handles an initial cookie or security pop-up, then cycles through all available years of data (2025–1996), scraping the table data from each page. Once collected, the data is loaded into a Pandas DataFrame, and appropriate data types are applied. Some of the team names included prefixes related to yearly achievements (like champions, qualifiers, etc.), which I decided to remove for consistency."),
         html.P(
             html.Div([
@@ -51,7 +51,7 @@ scrapingJumbotron = html.Div([
         dbc.Row([
             html.H2('Resulting Data'),
             html.Hr(),
-            html.P("To clean the data as much as possible, several columns have been dropped and the appropriate data formats have been applied. Additionally, data from 2025 has been removed as this data is incomplete as of today (5/5/2025). This data will be used in another section of this portfolio for data visualization of Club Statistics."),
+            html.P("To clean the data as much as possible, several columns have been dropped and the appropriate data formats have been applied. Additionally, data from 2025 has been removed as this data is incomplete as of today (5/5/2025). This data will be used later to visualize MLS Statistics."),
             html.P('Data Features descriptions are available below!'),
         ]),
 

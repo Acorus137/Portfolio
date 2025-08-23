@@ -17,4 +17,4 @@ register_scraper_callbacks(app)
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True, use_reloader=False)  # use_reloader=False avoids duplicate load
+    app.run(debug=True, use_reloader=False)  # use_reloader=False avoids duplicate load
